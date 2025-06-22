@@ -2,6 +2,10 @@
 
 A real-time facial recognition application built with Python, Gradio, and InsightFace. This application allows you to register faces, perform live recognition, and manage registered faces through an intuitive web interface.
 
+Want to see it in action?
+[Try it live on HuggingFace Spaces](https://huggingface.co/spaces/br1rda/live-face-recognition)
+
+
 ## Features
 
 - **Real-time Face Recognition**: Live camera feed with instant face detection and recognition
