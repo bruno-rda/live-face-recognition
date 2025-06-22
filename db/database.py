@@ -19,4 +19,4 @@ class MongoDB:
 
     @classmethod
     def get_embeddings_collection(cls):
-        return cls.get_db()['embeddings']
+        return cls.get_db()[Config.COLLECTION_NAME]

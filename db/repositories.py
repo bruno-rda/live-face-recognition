@@ -9,7 +9,7 @@ class FaceRepository:
     def insert_embedding(self, name: str, emb: np.ndarray) -> None:
         self.collection.insert_one({
             'name': name,
-            'embedding': emb.flatten().tolist()
+            Config.VECTOR_SEARCH_FIELD_PATH: emb.flatten().tolist()
         })
 
     def is_name_taken(self, name: str) -> bool:
@@ -41,8 +41,8 @@ class FaceRepository:
         res = self.collection.aggregate([
             {
                 "$vectorSearch": {
-                    "index": "embedding_index",
-                    "path": "embedding",
+                    "index": Config.VECTOR_SEARCH_INDEX_NAME,
+                    "path": Config.VECTOR_SEARCH_FIELD_PATH,
                     "queryVector": embedding_to_check.flatten().tolist(),
                     "numCandidates": 10,
                     "limit": 1
