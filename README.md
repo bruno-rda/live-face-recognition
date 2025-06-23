@@ -34,11 +34,31 @@ Want to see it in action?
    pip install -r requirements.txt
    ```
 
-3. **Set up environment variables**
-   Create a `.env` file in the root directory:
+## MongoDB Setup
+
+1. **Set up your database**
+   - Create a MongoDB database (local or cloud instance)
+   - Create a collection for storing face embeddings (you can name it whatever you prefer)
+
+2. **Create vector search index**
+   You need to create a vector search index on your embedding field to enable similarity searches. The goal is to allow MongoDB to efficiently find faces with similar embeddings using cosine similarity.
+   
+   In your MongoDB instance (through MongoDB Compass, Atlas UI, or shell), create a vector search index with these parameters:
+   - **Field**: Your embedding field name
+   - **Vector Size**: 512
+   - **Metric**: cosine
+   - **Index Name**: embedding_index (or any name you prefer)
+
+3. **Configure environment variables**
+   After setting up your database and index, update your `.env` file with the corresponding values:
    ```env
-   MONGO_URI=mongodb://localhost:27017
-   DATABASE_NAME=face_recognition
+   # Mongo secrets
+   MONGO_URI=mongodb://your_connection_string
+   DATABASE_NAME=your_database_name
+   COLLECTION_NAME=your_collection_name
+   VECTOR_SEARCH_FIELD_PATH=your_embedding_field
+
+   # App secrets
    ADMIN_PASSWORD=your_admin_password
    ```
 
@@ -96,7 +116,7 @@ The MongoDB collection stores face embeddings with the following structure:
 ```json
 {
   "name": "string",
-  "embedding": [512-dimensional vector]
+  "{{VECTOR_SEARCH_FIELD_PATH}}": [512-dimensional vector]
 }
 ```
 
